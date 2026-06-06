@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)file:///Users/leochan/Downloads/games.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpinningCat — Games</title>
+<link href="./SpinningCat — Games_files/css2" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Inter", sans-serif; background: #0a0a0a; }
+
+.nav { padding: 0 48px; height: 72px; display: flex; align-items: center; justify-content: space-between; background: #0d0d0d; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.nav-logo { color: #fff; font-weight: 900; font-size: 16px; letter-spacing: 0.08em; text-decoration: none; }
+.nav-logo span { color: #e11d28; }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a { color: rgba(255,255,255,0.4); font-size: 13px; font-weight: 500; text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: #fff; }
+.nav-links a.active { color: #e11d28; }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-login { color: rgba(255,255,255,0.4); font-size: 13px; font-weight: 500; text-decoration: none; }
+.nav-cta { background: #e11d28; color: #fff; padding: 9px 20px; border-radius: 9999px; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 14px rgba(225,29,40,0.3); }
+
+.hero { background: #0d0d0d; padding: 60px 48px 48px; border-bottom: 1px solid rgba(255,255,255,0.06); text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 500px; height: 300px; background: radial-gradient(ellipse, rgba(225,29,40,0.1) 0%, transparent 70%); pointer-events: none; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(225,29,40,0.1); border: 1px solid rgba(225,29,40,0.25); border-radius: 9999px; padding: 6px 16px; margin-bottom: 20px; }
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #e11d28; }
+.hero-badge span { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #e11d28; }
+.hero-title { font-size: 48px; font-weight: 900; color: #fff; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 14px; }
+.hero-title em { color: #e11d28; font-style: normal; }
+.hero-sub { font-size: 15px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 440px; margin: 0 auto; }
+
+.game-section { max-width: 700px; margin: 0 auto; padding: 48px 24px 80px; }
+
+.game-card { background: #111; border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.game-header { padding: 24px 28px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.game-title { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+.game-title span { color: #e11d28; }
+.game-badge { background: rgba(225,29,40,0.1); border: 1px solid rgba(225,29,40,0.25); border-radius: 9999px; padding: 4px 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #e11d28; }
+
+.game-wrap { padding: 20px; }
+
+/* GAME STYLES */
+#game-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+#score-row { display: flex; gap: 32px; }
+.score-box { text-align: center; }
+.score-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+.score-val { font-size: 22px; font-weight: 800; color: #fff; }
+#canvas-wrap { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); width: 100%; }
+canvas { display: block; background: #111; width: 100%; }
+#overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.88); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+#overlay h3 { font-size: 26px; font-weight: 900; color: #fff; }
+#overlay p { font-size: 13px; color: rgba(255,255,255,0.45); }
+#startBtn { background: #e11d28; color: #fff; border: none; padding: 12px 32px; border-radius: 9999px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 0 4px 20px rgba(225,29,40,0.4); transition: transform 0.15s, background 0.2s; }
+#startBtn:hover { background: #c81d25; transform: scale(1.04); }
+#controls { display: flex; gap: 8px; }
+.ctrl-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); padding: 10px 24px; border-radius: 10px; font-size: 16px; cursor: pointer; font-family: inherit; transition: background 0.15s; user-select: none; font-weight: 600; }
+.ctrl-btn:active { background: rgba(255,255,255,0.15); }
+#hint { font-size: 11px; color: rgba(255,255,255,0.2); text-align: center; }
+
+.footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 24px 48px; background: #0d0d0d; display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+.footer-copy span { color: #e11d28; font-weight: 600; }
+.footer-back { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.footer-back:hover { color: #e11d28; }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav { padding: 0 24px; }
+  .hero { padding: 48px 24px 36px; }
+  .hero-title { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">SPINNING<span>CAT</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#portfolio">Portfolio</a>
+    <a href="index.html#alerts">Alerts</a>
+    <a href="contact.html">Contact</a>
+    <a href="games.html" class="active">Games</a>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="nav-login">Log in</a>
+    <a href="#" class="nav-cta">Get Started →</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge"><div class="hero-badge-dot"></div><span>Mini Games</span></div>
+  <h1 class="hero-title">Play while you <em>HODL.</em></h1>
+  <p class="hero-sub">Take a break from the charts and dodge some crypto candles. More games coming soon!</p>
+</div>
+
+<div class="game-section">
+  <div class="game-card">
+    <div class="game-header">
+      <div class="game-title">SPINNING<span>CAT</span> Run!</div>
+      <div class="game-badge">🎮 Endless Runner</div>
+    </div>
+    <div class="game-wrap">
+      <div id="game-inner">
+        <div id="score-row">
+          <div class="score-box"><div class="score-label">Score</div><div class="score-val" id="scoreVal">207</div></div>
+          <div class="score-box"><div class="score-label">Best</div><div class="score-val" id="bestVal">417</div></div>
+          <div class="score-box"><div class="score-label">Speed</div><div class="score-val" id="speedVal">1.0x</div></div>
+        </div>
+        <div id="canvas-wrap">
+          <canvas id="c" width="620" height="200"></canvas>
+          <div id="overlay" style="display: flex;"><h3>💀 Game Over!</h3><p style="color:rgba(255,255,255,0.5)">Score: 207 </p><p style="color:rgba(255,255,255,0.3);font-size:12px">Best: 417</p><button id="startBtn" style="background:#e11d28;color:#fff;border:none;padding:12px 32px;border-radius:9999px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 20px rgba(225,29,40,0.4)">Play Again</button></div>
+        </div>
+        <div id="controls">
+          <button class="ctrl-btn" id="jumpBtn">⬆ Jump</button>
+          <button class="ctrl-btn" id="slideBtn">⬇ Slide</button>
+        </div>
+        <div id="hint">Space / ↑ to jump &nbsp;·&nbsp; ↓ to slide &nbsp;·&nbsp; collect ₿ for bonus points</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-copy">© 2024 <span>SpinningCat</span>. All rights reserved.</div>
+  <a href="file:///Users/leochan/Downloads/index.html" class="footer-back">← Back to home</a>
+</div>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+const GROUND = H - 40;
+
+let state = 'idle', score = 0, best = 0, frame = 0, speed = 4;
+const cat = { x: 80, y: GROUND, w: 36, h: 36, vy: 0, jumping: false, sliding: false };
+const GRAVITY = 0.6, JUMP_FORCE = -13;
+let obstacles = [], coins = [], nextObstacle = 80, nextCoin = 50;
+
+function spawnObstacle() {
+  const types = ['candle','candle','low'];
+  const type = types[Math.floor(Math.random()*types.length)];
+  const h = type==='low'?20:30+Math.random()*20;
+  const w = type==='low'?40:18;
+  const y = type==='low'?GROUND-10:GROUND-h;
+  obstacles.push({x:W,y,w,h,type,bullish:Math.random()>0.5});
+  nextObstacle = 80+Math.random()*120;
+}
+
+function spawnCoin() {
+  coins.push({x:W,y:GROUND-60-Math.random()*40,r:8,collected:false});
+  nextCoin = 60+Math.random()*80;
+}
+
+function drawCat() {
+  const {x,y,w,h,sliding} = cat;
+  const dh = sliding?h*0.55:h;
+  const dy = sliding?y+h-dh:y;
+  ctx.fillStyle='#1a1a1a';
+  ctx.beginPath(); ctx.roundRect(x,dy,w,dh,8); ctx.fill();
+  ctx.fillStyle='#e11d28';
+  ctx.fillRect(x+w-8,dy+4,4,dh-8);
+  if(!sliding){
+    ctx.fillStyle='#1a1a1a';
+    ctx.beginPath();ctx.moveTo(x+4,dy);ctx.lineTo(x,dy-10);ctx.lineTo(x+10,dy);ctx.fill();
+    ctx.beginPath();ctx.moveTo(x+w-4,dy);ctx.lineTo(x+w,dy-10);ctx.lineTo(x+w-10,dy);ctx.fill();
+    ctx.fillStyle='#e11d28';
+    ctx.beginPath();ctx.arc(x+10,dy+12,3,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(x+24,dy+12,3,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.3)';ctx.lineWidth=1;
+    [[x-12,dy+20,x+6,dy+18],[x-12,dy+24,x+6,dy+22],[x+w+12,dy+20,x+w-6,dy+18],[x+w+12,dy+24,x+w-6,dy+22]].forEach(([x1,y1,x2,y2])=>{ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();});
+    const legOff=Math.sin(frame*0.3)*5;
+    ctx.fillStyle='#333';
+    ctx.fillRect(x+4,dy+dh,8,6+legOff);
+    ctx.fillRect(x+w-12,dy+dh,8,6-legOff);
+  }
+}
+
+function drawObstacle(o) {
+  if(o.type==='candle'){
+    ctx.fillStyle=o.bullish?'#22c55e':'#e11d28';
+    ctx.fillRect(o.x,o.y,o.w,o.h);
+    ctx.strokeStyle=o.bullish?'#22c55e':'#e11d28';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(o.x+o.w/2,o.y);ctx.lineTo(o.x+o.w/2,o.y-10);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(o.x+o.w/2,o.y+o.h);ctx.lineTo(o.x+o.w/2,o.y+o.h+8);ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font='bold 9px Inter';ctx.textAlign='center';
+    ctx.fillText(o.bullish?'▲':'▼',o.x+o.w/2,o.y+o.h/2+3);
+  } else {
+    ctx.fillStyle='rgba(225,29,40,0.12)';ctx.fillRect(o.x,o.y,o.w,o.h);
+    ctx.strokeStyle='#e11d28';ctx.lineWidth=2;ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(o.x,o.y+o.h/2);ctx.lineTo(o.x+o.w,o.y+o.h/2);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#e11d28';ctx.font='bold 9px Inter';ctx.textAlign='center';
+    ctx.fillText('⚡',o.x+o.w/2,o.y+o.h/2+3);
+  }
+  ctx.textAlign='left';
+}
+
+function drawCoin(c) {
+  if(c.collected)return;
+  ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(c.x,c.y,c.r,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fbbf24';ctx.beginPath();ctx.arc(c.x-2,c.y-2,c.r*0.5,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#92400e';ctx.font='bold 8px Inter';ctx.textAlign='center';
+  ctx.fillText('₿',c.x,c.y+3);ctx.textAlign='left';
+}
+
+function drawGround() {
+  ctx.fillStyle='#1a1a1a';ctx.fillRect(0,GROUND+cat.h,W,H-GROUND-cat.h);
+  ctx.strokeStyle='rgba(225,29,40,0.12)';ctx.lineWidth=1;
+  for(let i=0;i<W;i+=40){const x=(i-(frame*speed)%40+40)%W;ctx.beginPath();ctx.moveTo(x,GROUND+cat.h);ctx.lineTo(x,H);ctx.stroke();}
+  ctx.strokeStyle='rgba(225,29,40,0.4)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(0,GROUND+cat.h);ctx.lineTo(W,GROUND+cat.h);ctx.stroke();
+}
+
+function drawBg() {
+  ctx.fillStyle='#111';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='rgba(255,255,255,0.4)';
+  [30,80,150,200,280,340,400,460,510,570].forEach((sx,i)=>{
+    const sy=[20,50,30,60,15,45,25,55,35,10][i];
+    const ox=((sx-frame*0.5)%W+W)%W;
+    ctx.beginPath();ctx.arc(ox,sy,1,0,Math.PI*2);ctx.fill();
+  });
+}
+
+function collides(a,b){
+  const margin=4,ch=cat.sliding?cat.h*0.55:cat.h,cy=cat.sliding?cat.y+cat.h-ch:cat.y;
+  return cat.x+margin<b.x+b.w&&cat.x+cat.w-margin>b.x&&cy+margin<b.y+b.h&&cy+ch-margin>b.y;
+}
+
+function jump(){if(state!=='playing')return;if(!cat.jumping){cat.vy=JUMP_FORCE;cat.jumping=true;cat.sliding=false;}}
+function slide(){if(state!=='playing')return;if(!cat.jumping)cat.sliding=true;setTimeout(()=>{cat.sliding=false;},500);}
+
+function update(){
+  if(state!=='playing')return;
+  frame++;score++;speed=4+Math.floor(score/300)*0.5;
+  document.getElementById('speedVal').textContent=(speed/4).toFixed(1)+'x';
+  document.getElementById('scoreVal').textContent=score;
+  cat.vy+=GRAVITY;cat.y+=cat.vy;
+  if(cat.y>=GROUND){cat.y=GROUND;cat.vy=0;cat.jumping=false;}
+  nextObstacle--;if(nextObstacle<=0)spawnObstacle();
+  obstacles.forEach(o=>{o.x-=speed;});obstacles=obstacles.filter(o=>o.x+o.w>-10);
+  nextCoin--;if(nextCoin<=0)spawnCoin();
+  coins.forEach(c=>{c.x-=speed;});coins=coins.filter(c=>c.x+c.r>-10);
+  coins.forEach(c=>{if(!c.collected){const dx=cat.x+cat.w/2-c.x,dy=cat.y+cat.h/2-c.y;if(Math.sqrt(dx*dx+dy*dy)<cat.w/2+c.r){c.collected=true;score+=50;}}});
+  for(const o of obstacles){if(collides(cat,o)){endGame();return;}}
+}
+
+function endGame(){
+  state='dead';if(score>best)best=score;
+  document.getElementById('bestVal').textContent=best;
+  const ov=document.getElementById('overlay');
+  ov.innerHTML=`<h3>💀 Game Over!</h3><p style="color:rgba(255,255,255,0.5)">Score: ${score} ${score===best&&score>0?'🏆 New Best!':''}</p><p style="color:rgba(255,255,255,0.3);font-size:12px">Best: ${best}</p><button id="startBtn" style="background:#e11d28;color:#fff;border:none;padding:12px 32px;border-radius:9999px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 20px rgba(225,29,40,0.4)">Play Again</button>`;
+  ov.style.display='flex';
+  document.getElementById('startBtn').onclick=startGame;
+}
+
+function startGame(){
+  state='playing';score=0;frame=0;speed=4;
+  cat.y=GROUND;cat.vy=0;cat.jumping=false;cat.sliding=false;
+  obstacles=[];coins=[];nextObstacle=80;nextCoin=50;
+  document.getElementById('overlay').style.display='none';
+  document.getElementById('scoreVal').textContent=0;
+  document.getElementById('speedVal').textContent='1x';
+}
+
+function draw(){drawBg();drawGround();coins.forEach(drawCoin);obstacles.forEach(drawObstacle);drawCat();}
+function loop(){update();draw();requestAnimationFrame(loop);}
+
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();jump();}
+  if(e.code==='ArrowDown'){e.preventDefault();slide();}
+});
+document.getElementById('jumpBtn').addEventListener('click',jump);
+document.getElementById('slideBtn').addEventListener('click',slide);
+document.getElementById('startBtn').addEventListener('click',startGame);
+loop();
+</script>
+
+
+</body></html>
